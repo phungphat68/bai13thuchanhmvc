@@ -18,8 +18,8 @@ namespace bai13thuchanhmvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(option => option.EnableEndpointRouting = false);
-            
+            //services.AddMvc( =option> option.EnableEndpointRouting = false);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,12 +29,19 @@ namespace bai13thuchanhmvc
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvcWithDefaultRoute();
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{Id?}");
+            });
+
+            // Tai da sua
             //app.Run(handler: async (context) =>
             //{
             //    await context.Response.WriteAsync(text:" xin chao hello");
             //});
-           
+
             //app.UseMvc(routes =>
             //    {
             //        routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
